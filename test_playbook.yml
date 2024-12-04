@@ -1,0 +1,15 @@
+---
+- name: Playbook
+  hosts: all
+  gather_facts: yes
+
+  tasks:
+    - name: install_nginx
+      ansible.builtin.apt:
+        name: nginx
+        state: present
+        update_cache: true
+      when:
+        - ansible_distribution == 'Ubuntu'
+        - ansible_distribution_version is version('22.04', '==')
+      become: true
